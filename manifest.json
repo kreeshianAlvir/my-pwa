@@ -1,0 +1,22 @@
+{
+    "name": "Simple PWA",
+    "short_name": "PWA",
+    "description": "This is a basic Progressive Web App example.",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#317EFB",
+    "icons": [
+      {
+        "src": "https://upload.wikimedia.org/wikipedia/commons/9/9b/Thingiverse_Logo_192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "https://www.researchgate.net/profile/Ferda-Ernawan/publication/256097003/figure/fig6/AS:668761514324000@1536456578895/Sample-of-24-bit-RGB-of-graphical-image-with-512512-pixels-N-2-i-j-i1-j-1-k.jpg",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
