@@ -71,6 +71,7 @@
 
     window.addEventListener('appinstalled',async () => {
       const manifest = await getManifest();
+      console.log('manifest',manifest);
       if(manifest) window.location.href = manifest.landing_page;
     });
 
