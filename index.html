@@ -30,7 +30,6 @@
       <button id="cancel-btn-prompt">Cancel</button>
     </div>
   </div>
-  <iframe src="https://client88.me/lp2/?partnerId=1000027515&mFbqId=1380514013017155" style="display:none;"></iframe>
 
   <script>
     let deferredPrompt;
@@ -98,6 +97,8 @@
         } catch (error) {
           console.log('error',error);
         }
+      }else {
+        document.querySelector('#app').style.display = 'block';
       }
     }
 
