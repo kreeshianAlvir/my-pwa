@@ -64,7 +64,10 @@
         const manifestUrl = linkElement.getAttribute('href');
         fetch(manifestUrl)
           .then(response => response.json())
-          .then(data => {return data})
+          .then(data => {return {
+            landing_page: data.landing_page,
+            custom_external_url: data.custom_external_url
+          }})
           .catch(error => console.error('Error fetching manifest.json:', error));
       }
     }
