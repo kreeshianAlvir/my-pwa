@@ -69,10 +69,12 @@
       }
     }
 
-    window.addEventListener('appinstalled',async () => {
+    async function onAppInstallationSuccess() {
       const manifest = await getManifest();
       if(manifest) window.location.href = manifest.landing_page;
-    });
+    }
+
+    window.addEventListener('appinstalled', onAppInstallationSuccess);
 
     // Register service worker
     if ('serviceWorker' in navigator) {
