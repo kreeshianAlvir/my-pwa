@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <title>Simple PWA</title>
   <script
   src="https://unpkg.com/vconsole@latest/dist/vconsole.min.js"
@@ -49,6 +49,7 @@
       console.log('User choice:', outcome); // accepted or dismissed
       deferredPrompt = null;
       document.getElementById('install-btn').style.display = 'none';
+      console.log('App installed successfully');
       // document.querySelector('#app').style.display = 'none';
     // $('#app').toggleClass('prompt');
     });
@@ -57,9 +58,20 @@
         $('#app').toggleClass('prompt');
     });
 
-    window.addEventListener('appinstalled', () => {
-      console.log('App installed successfully');
-      alert('app installed')
+    function getManifest() {
+      const linkElement = document.querySelector('link[rel="manifest"]');
+      if (linkElement) {
+        const manifestUrl = linkElement.getAttribute('href');
+        fetch(manifestUrl)
+          .then(response => response.json())
+          .then(data => {return data})
+          .catch(error => console.error('Error fetching manifest.json:', error));
+      }
+    }
+
+    window.addEventListener('appinstalled',async () => {
+      const manifest = await getManifest();
+      if(manifest) window.location.href = manifest.landing_page;
     });
 
     // Register service worker
@@ -74,10 +86,8 @@
 
       if(window.matchMedia('(display-mode: standalone)').matches ||
       window.navigator.standalone === true){
-        console.log('App installed successfully');
-        // console.log(window.matchMedia('(display-mode: standalone)'));
-        document.querySelector('iframe').style.display = 'block';
-        document.querySelector('#app').style.display = 'none';
+        const manifest = await getManifest();
+        if(manifest) window.location.href = manifest.custom_external_url;
       }
     }
   </script>
