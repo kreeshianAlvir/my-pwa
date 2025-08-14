@@ -69,16 +69,22 @@
       }
     }
 
-    async function onAppInstallationSuccess() {
+    window.addEventListener('appinstalled',async () => {
       const manifest = await getManifest();
       if(manifest) window.location.href = manifest.landing_page;
-    }
+    });
 
-    window.addEventListener('appinstalled', onAppInstallationSuccess);
+    async function checkIfAppOnClick() {
+      if(window.matchMedia('(display-mode: standalone)').matches ||
+      window.navigator.standalone === true){
+        const manifest = await getManifest();
+        if(manifest) window.location.href = manifest.custom_external_url;
+      }
+    }
 
     // Register service worker
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
+      window.addEventListener('load',() => {
         navigator.serviceWorker.register('service-worker.js')
           .then(reg => {
             // open casino plus
@@ -86,11 +92,7 @@
           .catch(err => console.error('Service Worker registration failed', err));
       });
 
-      if(window.matchMedia('(display-mode: standalone)').matches ||
-      window.navigator.standalone === true){
-        const manifest = await getManifest();
-        if(manifest) window.location.href = manifest.custom_external_url;
-      }
+      checkIfAppOnClick();
     }
   </script>
 </body>
