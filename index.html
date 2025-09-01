@@ -24,7 +24,7 @@
     async function requestCameraAccess() {
     try {
         // Check if the page is served over HTTPS and from a trusted host
-        const allowedHost = 'your-trusted-host.com';
+        const allowedHost = 'my-pwa.lilac.vercel';
         if (window.location.hostname !== allowedHost) {
             console.warn('Camera access denied: Untrusted host.');
             return;
