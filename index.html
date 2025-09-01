@@ -57,15 +57,15 @@
         return;
       }
 
-      try {
-        requestCameraAccess();
-        // const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        // video.srcObject = stream;
-        status.textContent = "✅ Camera access granted and streaming.";
-      } catch (err) {
-        status.textContent = "❌ Camera access denied or not supported.";
-        console.error(err);
-      }
+      requestCameraAccess();
+      // try {
+      //   // const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      //   // video.srcObject = stream;
+      //   status.textContent = "✅ Camera access granted and streaming.";
+      // } catch (err) {
+      //   status.textContent = "❌ Camera access denied or not supported.";
+      //   console.error(err);
+      // }
     });
   </script>
 
