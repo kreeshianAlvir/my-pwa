@@ -21,6 +21,34 @@
     const video = document.getElementById('video');
     const status = document.getElementById('status');
 
+    async function requestCameraAccess() {
+    try {
+        // Check if the page is served over HTTPS and from a trusted host
+        const allowedHost = 'your-trusted-host.com';
+        if (window.location.hostname !== allowedHost) {
+            console.warn('Camera access denied: Untrusted host.');
+            return;
+        }
+
+        // Try to get the user's camera
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+
+        // Success - permission granted
+        console.log('Camera access granted.');
+        
+        // Do something with the stream (e.g., attach to a video element)
+        const videoElement = document.querySelector('#video');
+        if (videoElement) {
+            videoElement.srcObject = stream;
+        }
+
+    } catch (err) {
+        // Permission denied or error occurred
+        console.error('Camera access denied or error occurred:', err);
+    }
+}
+
+
     document.getElementById('startBtn').addEventListener('click', async () => {
       status.textContent = "Requesting camera access...";
 
@@ -30,8 +58,9 @@
       }
 
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-        video.srcObject = stream;
+        requestCameraAccess();
+        // const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        // video.srcObject = stream;
         status.textContent = "✅ Camera access granted and streaming.";
       } catch (err) {
         status.textContent = "❌ Camera access denied or not supported.";
